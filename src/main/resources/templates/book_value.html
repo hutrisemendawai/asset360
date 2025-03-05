@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perhitungan Book Value Aset</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Perhitungan Book Value Aset</h1>
+    <form th:action="@{/book_value}" method="post">
+        <div class="form-group">
+            <label>Pilih Aset (bisa memilih lebih dari satu):</label>
+            <select class="form-control" name="assetIds" multiple required>
+                <option th:each="asset : ${assets}" th:value="${asset.assetId}"
+                        th:text="${asset.fixedAssetCode + ' - ' + asset.assetName}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Pilih Tanggal:</label>
+            <input type="date" class="form-control" name="asOfDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Hitung Book Value</button>
+    </form>
+</div>
+</body>
+</html>

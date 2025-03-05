@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Perhitungan Book Value</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Hasil Perhitungan Book Value Aset</h1>
+    <p>Per Tanggal: <span th:text="${asOfDate}"></span></p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Kode Aset</th>
+          <th>Nama Aset</th>
+          <th>Nilai Asli</th>
+          <th>Book Value</th>
+          <th>Tanggal Beli</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${resultList}">
+          <td th:text="${item.fixedAssetCode}"></td>
+          <td th:text="${item.assetName}"></td>
+          <!-- Memanggil bean currencyFormatter untuk format Rupiah -->
+          <td th:text="${ @currencyFormatter.formatRupiah(item.originalValue)}"></td>
+          <td th:text="${@currencyFormatter.formatRupiah(item.bookValue)}"></td>
+          <td th:text="${item.purchaseDate}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form th:action="@{/book_value/export}" method="post">
+      <input type="hidden" name="asOfDate" th:value="${asOfDate}" />
+      <div th:each="item : ${resultList}">
+        <input type="hidden" name="assetIds" th:value="${item.assetId}" />
+      </div>
+      <button type="submit" class="btn btn-success">Export ke PDF</button>
+    </form>
+    <a class="btn btn-secondary mt-2" th:href="@{/book_value}">Kembali</a>
+  </div>
+</body>
+</html>
