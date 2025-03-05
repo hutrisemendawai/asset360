@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Gunakan tanda kurung untuk ekspresi kondisional -->
+    <title th:text="(${assignment} != null and ${assignment.assignmentId} == null) ? 'Tambah Assignment' : 'Edit Assignment'">Form Assignment Aset</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 th:text="(${assignment} != null and ${assignment.assignmentId} == null) ? 'Tambah Assignment' : 'Edit Assignment'">Form Assignment Aset</h1>
+    <form th:action="(${assignment} != null and ${assignment.assignmentId} == null) ? @{/asset_assignments/save} : @{/asset_assignments/edit/{id}(id=${assignment.assignmentId})}"
+          th:object="${assignment}" method="post">
+        <div class="form-group">
+            <label>Aset</label>
+            <select class="form-control" th:field="*{asset}" required>
+                <option value="" disabled selected>Pilih Aset</option>
+                <!-- Kirim ID aset sebagai nilai -->
+                <option th:each="a : ${assets}" th:value="${a.assetId}" th:text="${a.fixedAssetCode + ' - ' + a.assetName}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Departemen Assignment</label>
+            <select class="form-control" th:field="*{assignedDepartment}" required>
+                <option value="" disabled selected>Pilih Departemen</option>
+                <!-- Kirim ID departemen sebagai nilai -->
+                <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Assignment</label>
+            <input type="date" class="form-control" th:field="*{assignedDate}" required />
+        </div>
+        <div class="form-group">
+            <label>Tanggal Pengembalian</label>
+            <input type="date" class="form-control" th:field="*{returnDate}" />
+        </div>
+        <button type="submit" class="btn btn-success">Simpan</button>
+        <a class="btn btn-secondary" th:href="@{/asset_assignments}">Batal</a>
+    </form>
+</div>
+</body>
+</html>

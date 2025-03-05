@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Kategori Aset</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Daftar Kategori Aset</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/asset_categories/new}">Tambah Kategori</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Kategori</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat : ${categories}">
+                <td th:text="${cat.categoryId}">ID</td>
+                <td th:text="${cat.categoryName}">Nama Kategori</td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{'/asset_categories/edit/' + ${cat.categoryId}}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{'/asset_categories/delete/' + ${cat.categoryId}}"
+                       onclick="return confirm('Yakin hapus kategori?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

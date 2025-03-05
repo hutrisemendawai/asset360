@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${asset.assetId == null} ? 'Tambah Aset' : 'Edit Aset'">Form Aset</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 th:text="${asset.assetId == null} ? 'Tambah Aset' : 'Edit Aset'">Form Aset</h1>
+    <form th:action="${asset.assetId == null} ? @{/assets/save} : @{/assets/update/{id}(id=${asset.assetId})}"
+          th:object="${asset}" method="post">
+        <div class="form-group">
+            <label>Nama Aset</label>
+            <input type="text" class="form-control" th:field="*{assetName}" placeholder="Masukkan nama aset" required/>
+        </div>
+        <div class="form-group">
+            <label>Nilai Aset</label>
+            <input type="number" step="0.01" class="form-control" th:field="*{assetValue}" placeholder="Masukkan nilai aset" required/>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Beli</label>
+            <input type="date" class="form-control" th:field="*{purchaseDate}" required/>
+        </div>
+        <div class="form-group">
+            <label>Lokasi</label>
+            <select class="form-control" th:field="*{location}" required>
+                <option value="" disabled selected>Pilih Lokasi</option>
+                <!-- Ubah nilai yang dikirim menjadi locationId -->
+                <option th:each="loc : ${locations}" 
+                        th:value="${loc.locationId}" 
+                        th:text="${loc.locationName}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Kategori Aset</label>
+            <select class="form-control" th:field="*{category}" required>
+                <option value="" disabled selected>Pilih Kategori</option>
+                <!-- Ubah nilai yang dikirim menjadi categoryId -->
+                <option th:each="cat : ${categories}" 
+                        th:value="${cat.categoryId}" 
+                        th:text="${cat.categoryName}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Departemen</label>
+            <select class="form-control" th:field="*{department}" required>
+                <option value="" disabled selected>Pilih Departemen</option>
+                <!-- Ubah nilai yang dikirim menjadi departmentId -->
+                <option th:each="dept : ${departments}" 
+                        th:value="${dept.departmentId}" 
+                        th:text="${dept.departmentName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Simpan</button>
+        <a class="btn btn-secondary" th:href="@{/assets}">Batal</a>
+    </form>
+</div>
+</body>
+</html>

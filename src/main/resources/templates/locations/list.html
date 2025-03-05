@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Lokasi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Daftar Lokasi</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/locations/new}">Tambah Lokasi</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Lokasi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="loc : ${locations}">
+                <td th:text="${loc.locationId}">ID</td>
+                <td th:text="${loc.locationName}">Nama Lokasi</td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{'/locations/edit/' + ${loc.locationId}}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{'/locations/delete/' + ${loc.locationId}}"
+                       onclick="return confirm('Yakin hapus lokasi?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

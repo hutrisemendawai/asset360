@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Asset360</title>
+  <!-- Optional: Sertakan CSS Bootstrap untuk tampilan yang lebih baik -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Dashboard</h1>
+    <p>Selamat datang di dashboard aplikasi Asset Management.</p>
+
+    <nav>
+      <ul class="list-unstyled">
+        <li>
+          <a th:href="@{/profile}">Profile</a> |
+          <a th:href="@{/logout}">Logout</a>
+        </li>
+        <li class="mt-2">
+          <strong>Aset:</strong> 
+          <a th:href="@{/assets}">Daftar Aset</a> | 
+          <a th:href="@{/assets/new}">Tambah Aset</a>
+        </li>
+        <li class="mt-2">
+          <strong>Lokasi:</strong> 
+          <a th:href="@{/locations}">Daftar Lokasi</a> | 
+          <a th:href="@{/locations/new}">Tambah Lokasi</a>
+        </li>
+        <li class="mt-2">
+          <strong>Kategori Aset:</strong> 
+          <a th:href="@{/asset_categories}">Daftar Kategori Aset</a> | 
+          <a th:href="@{/asset_categories/new}">Tambah Kategori Aset</a>
+        </li>
+        <li class="mt-2">
+          <strong>Departemen:</strong> 
+          <a th:href="@{/departments}">Daftar Departemen</a> | 
+          <a th:href="@{/departments/new}">Tambah Departemen</a>
+        </li>
+        <li class="mt-2">
+          <strong>Assignment Aset:</strong> 
+          <a th:href="@{/asset_assignments}">Daftar Assignment</a> | 
+          <a th:href="@{/asset_assignments/new}">Tambah Assignment</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</body>
+</html>

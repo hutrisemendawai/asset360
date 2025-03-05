@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Assignment Aset</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Daftar Assignment Aset</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/asset_assignments/new}">Tambah Assignment</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Aset</th>
+                <th>Departemen Assignment</th>
+                <th>Tanggal Assignment</th>
+                <th>Tanggal Pengembalian</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="assign : ${assignments}">
+                <td th:text="${assign.assignmentId}">ID</td>
+                <td th:text="${assign.asset.fixedAssetCode}">Kode Aset</td>
+                <td th:text="${assign.assignedDepartment.departmentName}">Departemen</td>
+                <td th:text="${assign.assignedDate}">Tanggal Assignment</td>
+                <td th:text="${assign.returnDate}">Tanggal Pengembalian</td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{'/asset_assignments/edit/' + ${assign.assignmentId}}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{'/asset_assignments/delete/' + ${assign.assignmentId}}"
+                       onclick="return confirm('Yakin hapus assignment?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

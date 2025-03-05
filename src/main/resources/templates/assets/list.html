@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Aset</title>
+    <!-- Optional: Include CSS Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Daftar Aset</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/assets/new}">Tambah Aset</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kode Aset</th>
+                <th>Nama Aset</th>
+                <th>Nilai Aset</th>
+                <th>Tanggal Beli</th>
+                <th>Lokasi</th>
+                <th>Kategori</th>
+                <th>Departemen</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="asset : ${assets}">
+                <td th:text="${asset.fixedAssetCode}">FA-XXX</td>
+                <td th:text="${asset.assetName}">Nama Aset</td>
+                <td th:text="${asset.assetValue}">0.00</td>
+                <td th:text="${asset.purchaseDate}">2025-01-01</td>
+                <td th:text="${asset.location.locationName}">Lokasi</td>
+                <td th:text="${asset.category.categoryName}">Kategori</td>
+                <td th:text="${asset.department.departmentName}">Departemen</td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{'/assets/edit/' + ${asset.assetId}}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{'/assets/delete/' + ${asset.assetId}}"
+                       onclick="return confirm('Yakin hapus aset?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

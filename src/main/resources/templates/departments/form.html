@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${department.departmentId == null} ? 'Tambah Departemen' : 'Edit Departemen'">Form Departemen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${department.departmentId == null} ? 'Tambah Departemen' : 'Edit Departemen'">Form Departemen</h1>
+    <form th:action="${department.departmentId == null} ? @{/departments/save} : @{/departments/edit/{id}(id=${department.departmentId})}"
+          th:object="${department}" method="post">
+        <div class="form-group">
+            <label>Nama Departemen</label>
+            <input type="text" class="form-control" th:field="*{departmentName}" placeholder="Masukkan nama departemen" required />
+        </div>
+        <button type="submit" class="btn btn-success">Simpan</button>
+        <a class="btn btn-secondary" th:href="@{/departments}">Batal</a>
+    </form>
+</div>
+</body>
+</html>
