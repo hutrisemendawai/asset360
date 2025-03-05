@@ -20,7 +20,7 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "register"; // Mengarah ke register.html
+        return "register"; 
     }
     
     @PostMapping("/register")
@@ -38,6 +38,6 @@ public class AuthController {
     
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // Pastikan Anda sudah memiliki login.html
+        return "login"; 
     }
 }

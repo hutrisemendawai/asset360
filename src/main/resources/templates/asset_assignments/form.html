@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!-- Gunakan tanda kurung untuk ekspresi kondisional -->
     <title th:text="(${assignment} != null and ${assignment.assignmentId} == null) ? 'Tambah Assignment' : 'Edit Assignment'">Form Assignment Aset</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -15,7 +14,6 @@
             <label>Aset</label>
             <select class="form-control" th:field="*{asset}" required>
                 <option value="" disabled selected>Pilih Aset</option>
-                <!-- Kirim ID aset sebagai nilai -->
                 <option th:each="a : ${assets}" th:value="${a.assetId}" th:text="${a.fixedAssetCode + ' - ' + a.assetName}"></option>
             </select>
         </div>
@@ -23,7 +21,6 @@
             <label>Departemen Assignment</label>
             <select class="form-control" th:field="*{assignedDepartment}" required>
                 <option value="" disabled selected>Pilih Departemen</option>
-                <!-- Kirim ID departemen sebagai nilai -->
                 <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}"></option>
             </select>
         </div>
