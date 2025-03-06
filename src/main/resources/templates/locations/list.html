@@ -14,6 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nama Lokasi</th>
+                <th>Region</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
             <tr th:each="loc : ${locations}">
                 <td th:text="${loc.locationId}">ID</td>
                 <td th:text="${loc.locationName}">Nama Lokasi</td>
+                <td th:text="${loc.region}">Region</td>
                 <td>
                     <a class="btn btn-warning" th:href="@{'/locations/edit/' + ${loc.locationId}}">Edit</a>
                     <a class="btn btn-danger" th:href="@{'/locations/delete/' + ${loc.locationId}}"

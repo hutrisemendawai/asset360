@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <!-- Perbaiki ekspresi kondisional dengan tanda kurung -->
   <title th:text="(${location.locationId} == null) ? 'Tambah Lokasi' : 'Edit Lokasi'">Form Lokasi</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -14,6 +13,10 @@
         <div class="form-group">
             <label>Nama Lokasi</label>
             <input type="text" class="form-control" th:field="*{locationName}" placeholder="Masukkan nama lokasi" required />
+        </div>
+        <div class="form-group">
+            <label>Region</label>
+            <input type="text" class="form-control" th:field="*{region}" placeholder="Masukkan region (misal: Palembang)" required />
         </div>
         <button type="submit" class="btn btn-success">Simpan</button>
         <a class="btn btn-secondary" th:href="@{/locations}">Batal</a>

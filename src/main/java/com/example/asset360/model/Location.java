@@ -16,6 +16,10 @@ public class Location {
     @Column(nullable = false, unique = true)
     private String locationName;
 
+    // Field baru untuk Region
+    @Column(nullable = false)
+    private String region;
+
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -23,7 +27,6 @@ public class Location {
     private Timestamp updatedAt;
 
     // Getters dan Setters
-
     public Integer getLocationId() {
         return locationId;
     }
@@ -40,19 +43,19 @@ public class Location {
         this.locationName = locationName;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Timestamp getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

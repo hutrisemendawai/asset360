@@ -54,6 +54,11 @@
                         <label>Alamat Tempat Tinggal:</label>
                         <textarea th:field="*{address}" class="form-control" rows="3" required></textarea>
                     </div>
+                    <!-- Field Region -->
+                    <div class="form-group">
+                        <label>Region:</label>
+                        <input type="text" th:field="*{region}" class="form-control" placeholder="Masukkan region (misal: Palembang)" required/>
+                    </div>
                 </fieldset>
                 
                 <fieldset class="border p-3 mb-4">
@@ -76,11 +81,6 @@
         </div>
     </div>
 </div>
-
 <!-- (Opsional) Tambahkan JS Bootstrap jika dibutuhkan -->
-<!-- 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
--->
 </body>
 </html>

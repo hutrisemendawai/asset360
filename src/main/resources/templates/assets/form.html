@@ -26,12 +26,12 @@
             <label>Lokasi</label>
             <select class="form-control" th:field="*{location}" required>
                 <option value="" disabled selected>Pilih Lokasi</option>
-                <!-- Ubah nilai yang dikirim menjadi locationId -->
+                <!-- Menampilkan nama lokasi beserta region, misal: "Gedung VAK Palembang (Palembang)" -->
                 <option th:each="loc : ${locations}" 
                         th:value="${loc.locationId}" 
-                        th:text="${loc.locationName}"></option>
+                        th:text="${loc.locationName + ' (' + loc.region + ')'}"></option>
             </select>
-        </div>
+        </div>        
         <div class="form-group">
             <label>Kategori Aset</label>
             <select class="form-control" th:field="*{category}" required>

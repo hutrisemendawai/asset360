@@ -40,6 +40,10 @@ public class User {
     
     @Column(nullable = false)
     private String address;
+    
+    // Field baru untuk Region
+    @Column(nullable = false)
+    private String region;
 
     // Getters dan Setters
     public Long getId() {
@@ -110,5 +114,12 @@ public class User {
     }
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+    public void setRegion(String region) {
+        this.region = region;
     }
 }
