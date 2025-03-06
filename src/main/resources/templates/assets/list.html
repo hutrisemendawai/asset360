@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Daftar Aset</title>
-    <!-- Optional: Include CSS Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -29,7 +28,8 @@
                 <td th:text="${asset.assetName}">Nama Aset</td>
                 <td th:text="${asset.assetValue}">0.00</td>
                 <td th:text="${asset.purchaseDate}">2025-01-01</td>
-                <td th:text="${asset.location.locationName}">Lokasi</td>
+                <!-- Tampilkan nama lokasi beserta region -->
+                <td th:text="${asset.location.locationName + ' (' + asset.location.region + ')'}">Lokasi</td>
                 <td th:text="${asset.category.categoryName}">Kategori</td>
                 <td th:text="${asset.department.departmentName}">Departemen</td>
                 <td>

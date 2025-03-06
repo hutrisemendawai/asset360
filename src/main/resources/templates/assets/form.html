@@ -26,7 +26,7 @@
             <label>Lokasi</label>
             <select class="form-control" th:field="*{location}" required>
                 <option value="" disabled selected>Pilih Lokasi</option>
-                <!-- Menampilkan nama lokasi beserta region, misal: "Gedung VAK Palembang (Palembang)" -->
+                <!-- Tampilkan lokasi beserta region, misal: "Gedung VAK Palembang (Palembang)" -->
                 <option th:each="loc : ${locations}" 
                         th:value="${loc.locationId}" 
                         th:text="${loc.locationName + ' (' + loc.region + ')'}"></option>
@@ -36,7 +36,6 @@
             <label>Kategori Aset</label>
             <select class="form-control" th:field="*{category}" required>
                 <option value="" disabled selected>Pilih Kategori</option>
-                <!-- Ubah nilai yang dikirim menjadi categoryId -->
                 <option th:each="cat : ${categories}" 
                         th:value="${cat.categoryId}" 
                         th:text="${cat.categoryName}"></option>
@@ -46,7 +45,6 @@
             <label>Departemen</label>
             <select class="form-control" th:field="*{department}" required>
                 <option value="" disabled selected>Pilih Departemen</option>
-                <!-- Ubah nilai yang dikirim menjadi departmentId -->
                 <option th:each="dept : ${departments}" 
                         th:value="${dept.departmentId}" 
                         th:text="${dept.departmentName}"></option>
