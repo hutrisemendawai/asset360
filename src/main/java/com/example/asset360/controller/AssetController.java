@@ -8,11 +8,18 @@ import com.example.asset360.repository.DepartmentRepository;
 import com.example.asset360.repository.LocationRepository;
 import com.example.asset360.service.AssetService;
 import com.example.asset360.service.CustomUserDetailsService;
+import com.example.asset360.service.QrCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.imageio.ImageIO;
+import jakarta.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 
 @Controller
 @RequestMapping("/assets")
@@ -35,6 +42,9 @@ public class AssetController {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    
+    @Autowired
+    private QrCodeService qrCodeService;
 
     @GetMapping
     public String listAssets(Model model, Authentication authentication) {
@@ -122,4 +132,25 @@ public class AssetController {
         assetRepository.delete(asset);
         return "redirect:/assets";
     }
+    
+    // Endpoint untuk menghasilkan QR Code
+    @GetMapping("/{id}/qrcode")
+    public void getAssetQrCode(@PathVariable("id") Integer id, HttpServletResponse response) {
+        Asset asset = assetRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
+        // Format data menggunakan JSON dengan mengambil data region dari asset.getLocation()
+        String qrText = "{\"Kode FA\":\"" + asset.getFixedAssetCode() + "\", "
+                + "\"Nama\":\"" + asset.getAssetName() + "\", "
+                + "\"Region\":\"" + asset.getLocation().getRegion() + "\"}";
+        try {
+            BufferedImage qrImage = qrCodeService.generateQrCodeImage(qrText, 300, 300);
+            response.setContentType("image/png");
+            OutputStream os = response.getOutputStream();
+            ImageIO.write(qrImage, "PNG", os);
+            os.flush();
+        } catch (IOException | com.google.zxing.WriterException e) {
+            throw new RuntimeException("Could not generate QR Code", e);
+        }
+    }
+
 }

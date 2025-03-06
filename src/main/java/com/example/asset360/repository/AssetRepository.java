@@ -6,6 +6,7 @@ import com.example.asset360.model.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 
 public interface AssetRepository extends JpaRepository<Asset, Integer> {
 
@@ -16,4 +17,7 @@ public interface AssetRepository extends JpaRepository<Asset, Integer> {
 
     @Query("SELECT a FROM Asset a WHERE a.location.region = ?1")
     List<Asset> findByLocationRegion(String region);
+    
+    // Method untuk mendapatkan Asset berdasarkan fixedAssetCode
+    Optional<Asset> findByFixedAssetCode(String fixedAssetCode);
 }

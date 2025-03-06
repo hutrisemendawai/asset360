@@ -19,6 +19,7 @@
                 <th>Lokasi (Region)</th>
                 <th>Kategori</th>
                 <th>Departemen</th>
+                <th>QR Code</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -31,6 +32,9 @@
                 <td th:text="${asset.location.locationName + ' (' + asset.location.region + ')'}">Lokasi</td>
                 <td th:text="${asset.category.categoryName}">Kategori</td>
                 <td th:text="${asset.department.departmentName}">Departemen</td>
+                <td>
+                    <img th:src="@{'/assets/' + ${asset.assetId} + '/qrcode'}" alt="QR Code" width="100"/>
+                </td>
                 <td>
                     <a class="btn btn-warning" th:href="@{'/assets/edit/' + ${asset.assetId}}">Edit</a>
                     <a class="btn btn-danger" th:href="@{'/assets/delete/' + ${asset.assetId}}"
