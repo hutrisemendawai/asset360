@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Request Transfer Aset (Pending)</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h1>Daftar Request Transfer Aset (Pending)</h1>
+  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID Request</th>
+        <th>Aset</th>
+        <th>Lokasi Asal</th>
+        <th>Lokasi Tujuan</th>
+        <th>Departemen Asal</th>
+        <th>Departemen Tujuan</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="req : ${requests}">
+        <td th:text="${req.id}">1</td>
+        <td th:text="${req.asset.fixedAssetCode + ' - ' + req.asset.assetName}">FA-XXX</td>
+        <td th:text="${req.fromLocation.locationName + ' (' + req.fromLocation.region + ')'}">Lokasi Asal</td>
+        <td th:text="${req.toLocation.locationName + ' (' + req.toLocation.region + ')'}">Lokasi Tujuan</td>
+        <td th:text="${req.fromDepartment.departmentName}">Departemen Asal</td>
+        <td th:text="${req.toDepartment.departmentName}">Departemen Tujuan</td>
+        <td th:text="${req.status}">PENDING</td>
+        <td>
+          <form th:action="@{'/asset_transfer/accept/' + ${req.id}}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-success">Accept</button>
+          </form>
+          <form th:action="@{'/asset_transfer/reject/' + ${req.id}}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Reject</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-secondary" th:href="@{/assets}">Kembali ke Daftar Aset</a>
+</div>
+</body>
+</html>

@@ -16,7 +16,7 @@
                 <th>Nama Aset</th>
                 <th>Nilai Aset</th>
                 <th>Tanggal Beli</th>
-                <th>Lokasi</th>
+                <th>Lokasi (Region)</th>
                 <th>Kategori</th>
                 <th>Departemen</th>
                 <th>Aksi</th>
@@ -28,7 +28,6 @@
                 <td th:text="${asset.assetName}">Nama Aset</td>
                 <td th:text="${asset.assetValue}">0.00</td>
                 <td th:text="${asset.purchaseDate}">2025-01-01</td>
-                <!-- Tampilkan nama lokasi beserta region -->
                 <td th:text="${asset.location.locationName + ' (' + asset.location.region + ')'}">Lokasi</td>
                 <td th:text="${asset.category.categoryName}">Kategori</td>
                 <td th:text="${asset.department.departmentName}">Departemen</td>

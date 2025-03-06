@@ -34,7 +34,6 @@ public class AssetController {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    // Untuk mengambil data user saat request, inject service userDetails
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
@@ -64,12 +63,10 @@ public class AssetController {
     // Memproses penyimpanan aset baru
     @PostMapping("/save")
     public String saveAsset(@ModelAttribute("asset") Asset asset, Authentication authentication) {
-        // Pastikan lokasi yang dipilih sesuai dengan region user
         String email = authentication.getName();
         User user = userDetailsService.findByEmail(email);
         String userRegion = user.getRegion();
-        if (!asset.getLocation().getRegion().equals(userRegion)) {
-            // Jika tidak sesuai, redirect dengan pesan error (bisa dikembangkan menggunakan flash attribute)
+        if (!asset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
             return "redirect:/assets?error=Region mismatch";
         }
         assetService.saveAsset(asset);
@@ -85,8 +82,7 @@ public class AssetController {
 
         Asset asset = assetRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
-        // Pastikan aset yang akan diedit berada di region user
-        if (!asset.getLocation().getRegion().equals(userRegion)) {
+        if (!asset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
             return "redirect:/assets?error=Unauthorized";
         }
         model.addAttribute("asset", asset);
@@ -105,16 +101,13 @@ public class AssetController {
 
         Asset existingAsset = assetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
-        // Pastikan aset yang diupdate berada di region user
-        if (!existingAsset.getLocation().getRegion().equals(userRegion)) {
+        if (!existingAsset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
             return "redirect:/assets?error=Unauthorized";
         }
-        // Update field-field yang dapat diedit
         existingAsset.setAssetName(updatedAsset.getAssetName());
         existingAsset.setAssetValue(updatedAsset.getAssetValue());
         existingAsset.setPurchaseDate(updatedAsset.getPurchaseDate());
-        // Pastikan lokasi baru yang dipilih sesuai dengan region user
-        if (!updatedAsset.getLocation().getRegion().equals(userRegion)) {
+        if (!updatedAsset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
             return "redirect:/assets?error=Location region mismatch";
         }
         existingAsset.setLocation(updatedAsset.getLocation());
@@ -133,7 +126,7 @@ public class AssetController {
 
         Asset asset = assetRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
-        if (!asset.getLocation().getRegion().equals(userRegion)) {
+        if (!asset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
             return "redirect:/assets?error=Unauthorized";
         }
         assetRepository.delete(asset);

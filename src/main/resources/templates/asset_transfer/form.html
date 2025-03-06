@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Transfer Aset</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h1>Transfer Aset</h1>
+  <form th:action="@{/asset_transfer/new}" method="post">
+    <!-- Pilih Aset -->
+    <div class="form-group">
+      <label>Pilih Aset</label>
+      <select class="form-control" name="assetId" required>
+        <option value="" disabled selected>Pilih Aset</option>
+        <option th:each="asset : ${assets}"
+                th:value="${asset.assetId}"
+                th:text="${asset.fixedAssetCode + ' - ' + asset.assetName}"></option>
+      </select>
+    </div>
+    <!-- Pilih Lokasi Tujuan -->
+    <div class="form-group">
+      <label>Pilih Lokasi Tujuan</label>
+      <select class="form-control" name="toLocationId" required>
+        <option value="" disabled selected>Pilih Lokasi</option>
+        <option th:each="loc : ${locations}"
+                th:value="${loc.locationId}"
+                th:text="${loc.locationName + ' (' + loc.region + ')'}"></option>
+      </select>
+    </div>
+    <!-- Pilih Departemen Tujuan -->
+    <div class="form-group">
+      <label>Pilih Departemen Tujuan</label>
+      <select class="form-control" name="toDepartmentId" required>
+        <option value="" disabled selected>Pilih Departemen</option>
+        <option th:each="dept : ${departments}"
+                th:value="${dept.departmentId}"
+                th:text="${dept.departmentName}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">Kirim Request Transfer</button>
+    <a class="btn btn-secondary" th:href="@{/assets}">Batal</a>
+  </form>
+</div>
+</body>
+</html>

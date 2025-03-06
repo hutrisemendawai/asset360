@@ -45,7 +45,7 @@ public class Asset {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    // Getter dan Setter
+    // Getters dan Setters
 
     public Integer getAssetId() {
         return assetId;

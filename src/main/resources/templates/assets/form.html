@@ -26,7 +26,6 @@
             <label>Lokasi</label>
             <select class="form-control" th:field="*{location}" required>
                 <option value="" disabled selected>Pilih Lokasi</option>
-                <!-- Tampilkan lokasi beserta region, misal: "Gedung VAK Palembang (Palembang)" -->
                 <option th:each="loc : ${locations}" 
                         th:value="${loc.locationId}" 
                         th:text="${loc.locationName + ' (' + loc.region + ')'}"></option>

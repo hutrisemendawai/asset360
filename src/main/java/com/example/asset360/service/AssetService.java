@@ -16,11 +16,15 @@ public class AssetService {
         // Ambil 3 huruf awal dari kategori dan departemen (dalam huruf kapital)
         String catPrefix = asset.getCategory().getCategoryName().substring(0, 3).toUpperCase();
         String deptPrefix = asset.getDepartment().getDepartmentName().substring(0, 3).toUpperCase();
-        // Hitung jumlah aset untuk kategori dan departemen tersebut
+        // Mulai dengan count aset yang ada
         int count = assetRepository.countByCategoryAndDepartment(asset.getCategory(), asset.getDepartment());
-        // Nomor urut baru (tambah 1) dalam format 5 digit
-        String number = String.format("%05d", count + 1);
-        return "FA-" + catPrefix + "-" + deptPrefix + "-" + number;
+        String code;
+        // Lakukan perulangan sampai menemukan kode yang unik
+        do {
+            count++;
+            code = "FA-" + catPrefix + "-" + deptPrefix + "-" + String.format("%05d", count);
+        } while (assetRepository.existsByFixedAssetCode(code));
+        return code;
     }
 
     // Simpan aset: jika aset baru, generate fixed asset code; jika update, pertahankan kode lama
