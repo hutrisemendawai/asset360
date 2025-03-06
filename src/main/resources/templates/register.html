@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Register - Asset360</title>
-    <!-- Minimal Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </head>
 <body>
@@ -12,6 +11,7 @@
     <div class="row">
         <div class="col-md-8">
             <form th:action="@{/register}" method="post" th:object="${user}">
+                <!-- Data Pribadi -->
                 <fieldset class="border p-3 mb-4">
                     <legend class="w-auto px-2">Data Pribadi</legend>
                     <div class="form-group">
@@ -40,6 +40,7 @@
                     </div>
                 </fieldset>
                 
+                <!-- Data Kontak -->
                 <fieldset class="border p-3 mb-4">
                     <legend class="w-auto px-2">Data Kontak</legend>
                     <div class="form-group">
@@ -54,13 +55,18 @@
                         <label>Alamat Tempat Tinggal:</label>
                         <textarea th:field="*{address}" class="form-control" rows="3" required></textarea>
                     </div>
-                    <!-- Field Region -->
+                    <!-- Dropdown Lokasi -->
                     <div class="form-group">
-                        <label>Region:</label>
-                        <input type="text" th:field="*{region}" class="form-control" placeholder="Masukkan region (misal: Palembang)" required/>
+                        <label>Lokasi:</label>
+                        <select class="form-control" name="locationId" required>
+                            <option value="" disabled selected>Pilih Lokasi</option>
+                            <option th:each="loc : ${locations}" th:value="${loc.locationId}"
+                                    th:text="${loc.locationName + ' (' + loc.region + ')'}"></option>
+                        </select>
                     </div>
                 </fieldset>
                 
+                <!-- Data Akun -->
                 <fieldset class="border p-3 mb-4">
                     <legend class="w-auto px-2">Data Akun</legend>
                     <div class="form-group">
@@ -81,6 +87,5 @@
         </div>
     </div>
 </div>
-<!-- (Opsional) Tambahkan JS Bootstrap jika dibutuhkan -->
 </body>
 </html>

@@ -9,6 +9,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Edit Profile</h1>
     <form th:action="@{/profile}" method="post" th:object="${user}">
+        <!-- Data Pribadi -->
         <fieldset class="border p-3 mb-4">
             <legend class="w-auto px-2">Data Pribadi</legend>
             <div class="form-group">
@@ -37,6 +38,7 @@
             </div>
         </fieldset>
         
+        <!-- Data Kontak -->
         <fieldset class="border p-3 mb-4">
             <legend class="w-auto px-2">Data Kontak</legend>
             <div class="form-group">
@@ -51,10 +53,15 @@
                 <label>Alamat Tempat Tinggal:</label>
                 <textarea th:field="*{address}" class="form-control" rows="3" required></textarea>
             </div>
-            <!-- Tambahkan field Region -->
+            <!-- Dropdown Lokasi -->
             <div class="form-group">
-                <label>Region:</label>
-                <input type="text" th:field="*{region}" class="form-control" placeholder="Masukkan region" required/>
+                <label>Lokasi:</label>
+                <select class="form-control" name="locationId" required>
+                    <option value="" disabled selected>Pilih Lokasi</option>
+                    <option th:each="loc : ${locations}" th:value="${loc.locationId}"
+                            th:text="${loc.locationName + ' (' + loc.region + ')'}"
+                            th:selected="${loc.region == user.region}"></option>
+                </select>
             </div>
         </fieldset>
         
@@ -66,6 +73,5 @@
         <p th:text="${message}" class="text-success"></p>
     </div>
 </div>
-<!-- (Opsional) Tambahkan JS Bootstrap jika dibutuhkan -->
 </body>
 </html>

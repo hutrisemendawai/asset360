@@ -41,7 +41,7 @@ public class User {
     @Column(nullable = false)
     private String address;
     
-    // Field baru untuk Region
+    // Field baru untuk Region (akan diisi dari lokasi)
     @Column(nullable = false)
     private String region;
 
