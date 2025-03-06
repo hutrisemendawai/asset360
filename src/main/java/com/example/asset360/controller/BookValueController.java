@@ -68,12 +68,12 @@ public class BookValueController {
         return "book_value_result";
     }
 
-    // Mengekspor hasil perhitungan ke PDF dengan format Rupiah
+    // Mengekspor hasil perhitungan ke PDF dengan format Rupiah dan total book value
     @PostMapping("/export")
     public void exportBookValueToPDF(@RequestParam("assetIds") List<Integer> assetIds,
-                                     @RequestParam("asOfDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate asOfDate,
-                                     HttpServletResponse response) throws DocumentException, IOException {
-        
+                                    @RequestParam("asOfDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate asOfDate,
+                                    HttpServletResponse response) throws DocumentException, IOException {
+
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=book_value_report.pdf";
@@ -106,13 +106,20 @@ public class BookValueController {
         document.add(new Paragraph("Laporan Book Value Aset per Tanggal " + asOfDate));
         document.add(new Paragraph(" "));
 
+        // Variabel untuk menghitung total book value
+        BigDecimal totalBookValue = BigDecimal.ZERO;
+
         for (AssetBookValueDTO dto : resultList) {
+            totalBookValue = totalBookValue.add(dto.getBookValue());
             String line = "Aset: " + dto.getFixedAssetCode() + " - " + dto.getAssetName() +
                     " | Nilai Asli: " + formatter.format(dto.getOriginalValue()) +
                     " | Book Value: " + formatter.format(dto.getBookValue()) +
                     " | Tanggal Beli: " + dto.getPurchaseDate();
             document.add(new Paragraph(line));
         }
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Total Book Value: " + formatter.format(totalBookValue)));
         document.close();
     }
 }
