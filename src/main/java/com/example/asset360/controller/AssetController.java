@@ -1,7 +1,6 @@
 package com.example.asset360.controller;
 
 import com.example.asset360.model.Asset;
-import com.example.asset360.model.Location;
 import com.example.asset360.model.User;
 import com.example.asset360.repository.AssetCategoryRepository;
 import com.example.asset360.repository.AssetRepository;
@@ -37,7 +36,6 @@ public class AssetController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    // Menampilkan daftar aset (hanya aset di region user)
     @GetMapping
     public String listAssets(Model model, Authentication authentication) {
         String email = authentication.getName();
@@ -47,7 +45,6 @@ public class AssetController {
         return "assets/list";
     }
 
-    // Menampilkan form tambah aset (dropdown lokasi di‐filter berdasarkan region user)
     @GetMapping("/new")
     public String showCreateForm(Model model, Authentication authentication) {
         String email = authentication.getName();
@@ -60,7 +57,6 @@ public class AssetController {
         return "assets/form";
     }
 
-    // Memproses penyimpanan aset baru
     @PostMapping("/save")
     public String saveAsset(@ModelAttribute("asset") Asset asset, Authentication authentication) {
         String email = authentication.getName();
@@ -73,13 +69,11 @@ public class AssetController {
         return "redirect:/assets";
     }
 
-    // Menampilkan form edit aset
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, Authentication authentication) {
         String email = authentication.getName();
         User user = userDetailsService.findByEmail(email);
         String userRegion = user.getRegion();
-
         Asset asset = assetRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
         if (!asset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
@@ -92,13 +86,11 @@ public class AssetController {
         return "assets/form";
     }
 
-    // Proses update aset
     @PostMapping("/update/{id}")
     public String updateAsset(@PathVariable("id") Integer id, @ModelAttribute("asset") Asset updatedAsset, Authentication authentication) {
         String email = authentication.getName();
         User user = userDetailsService.findByEmail(email);
         String userRegion = user.getRegion();
-
         Asset existingAsset = assetRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
         if (!existingAsset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {
@@ -117,13 +109,11 @@ public class AssetController {
         return "redirect:/assets";
     }
 
-    // Hapus aset
     @GetMapping("/delete/{id}")
     public String deleteAsset(@PathVariable("id") Integer id, Authentication authentication) {
         String email = authentication.getName();
         User user = userDetailsService.findByEmail(email);
         String userRegion = user.getRegion();
-
         Asset asset = assetRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid asset Id:" + id));
         if (!asset.getLocation().getRegion().equalsIgnoreCase(userRegion)) {

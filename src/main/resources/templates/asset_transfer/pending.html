@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>Daftar Request Transfer Aset (Pending)</title>
@@ -32,12 +33,15 @@
         <td th:text="${req.toDepartment.departmentName}">Departemen Tujuan</td>
         <td th:text="${req.status}">PENDING</td>
         <td>
-          <form th:action="@{'/asset_transfer/accept/' + ${req.id}}" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-success">Accept</button>
-          </form>
-          <form th:action="@{'/asset_transfer/reject/' + ${req.id}}" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-danger">Reject</button>
-          </form>
+          <!-- Tampilkan tombol hanya jika region user sama dengan region tujuan -->
+          <div th:if="${#strings.equalsIgnoreCase(userRegion, req.toLocation.region)}">
+            <form th:action="@{'/asset_transfer/accept/' + ${req.id}}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+            <form th:action="@{'/asset_transfer/reject/' + ${req.id}}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-danger">Reject</button>
+            </form>
+          </div>
         </td>
       </tr>
     </tbody>

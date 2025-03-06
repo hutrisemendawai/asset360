@@ -43,11 +43,9 @@ public class AssetTransferService {
         request.setStatus(TransferStatus.ACCEPTED);
         request.setRespondedAt(new Timestamp(System.currentTimeMillis()));
 
-        // Update aset: lokasi dan departemen
         Asset asset = request.getAsset();
         asset.setLocation(request.getToLocation());
         asset.setDepartment(request.getToDepartment());
-        // Jika departemen berubah, regenerasi fixedAssetCode
         if (!request.getFromDepartment().getDepartmentId().equals(request.getToDepartment().getDepartmentId())) {
             asset.setFixedAssetCode(assetService.generateFixedAssetCode(asset));
         }

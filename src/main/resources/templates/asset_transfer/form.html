@@ -9,7 +9,7 @@
 <div class="container mt-4">
   <h1>Transfer Aset</h1>
   <form th:action="@{/asset_transfer/new}" method="post">
-    <!-- Pilih Aset -->
+    <!-- Pilih Aset (hanya aset dari region user) -->
     <div class="form-group">
       <label>Pilih Aset</label>
       <select class="form-control" name="assetId" required>
@@ -19,7 +19,7 @@
                 th:text="${asset.fixedAssetCode + ' - ' + asset.assetName}"></option>
       </select>
     </div>
-    <!-- Pilih Lokasi Tujuan -->
+    <!-- Pilih Lokasi Tujuan (semua lokasi) -->
     <div class="form-group">
       <label>Pilih Lokasi Tujuan</label>
       <select class="form-control" name="toLocationId" required>
