@@ -14,28 +14,25 @@ public class LocationController {
     @Autowired
     private LocationRepository locationRepository;
 
-    // Menampilkan daftar lokasi
     @GetMapping
     public String listLocations(Model model) {
         model.addAttribute("locations", locationRepository.findAll());
-        return "locations/list";
+        return "locations/list"; // pastikan view locations/list.html sudah ada
     }
 
-    // Menampilkan form tambah lokasi
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("location", new Location());
-        return "locations/form";
+        return "locations/form"; // pastikan view locations/form.html sudah ada
     }
 
-    // Memproses penyimpanan lokasi baru
     @PostMapping("/save")
     public String saveLocation(@ModelAttribute("location") Location location) {
         locationRepository.save(location);
         return "redirect:/locations";
     }
 
-    // Menampilkan form edit lokasi
+    // Tampilkan form edit lokasi
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model) {
         Location location = locationRepository.findById(id)
@@ -44,7 +41,17 @@ public class LocationController {
         return "locations/form";
     }
 
-    // Menghapus lokasi
+    // Proses update lokasi (mapping POST untuk /edit/{id})
+    @PostMapping("/edit/{id}")
+    public String updateLocation(@PathVariable("id") Integer id, @ModelAttribute("location") Location location) {
+        Location existingLocation = locationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid location Id:" + id));
+        existingLocation.setLocationName(location.getLocationName());
+        existingLocation.setRegion(location.getRegion());
+        locationRepository.save(existingLocation);
+        return "redirect:/locations";
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteLocation(@PathVariable("id") Integer id) {
         Location location = locationRepository.findById(id)
