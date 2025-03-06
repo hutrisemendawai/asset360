@@ -33,7 +33,7 @@ public class SecurityConfig {
         http
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/register", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/register", "/css/**", "/js/**", "/login").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
+                .logoutSuccessUrl("/login") // setelah logout, diarahkan ke halaman login
                 .permitAll()
             );
         return http.build();
